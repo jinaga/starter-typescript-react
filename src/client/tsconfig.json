@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es5",
+        "allowJs": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "../../dist/public/js",
+        "baseUrl": ".",
+        "lib": [ "dom", "es2015" ],
+        "paths": {
+            "*": [
+                "../node_modules/*",
+                "../types/*"
+            ]
+        }
+    },
+    "include": [
+        "**/*.ts"
+    ]
+}
