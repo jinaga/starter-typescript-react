@@ -12,7 +12,8 @@ module.exports = {
             {
                 test: /\.ts$/,
                 include: [
-                    path.resolve(__dirname, 'src/client')
+                    path.resolve(__dirname, 'src/client'),
+                    path.resolve(__dirname, 'src/shared')
                 ],
                 use: 'ts-loader',
                 exclude: /node-modules/
@@ -20,7 +21,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', '.ts'],
         alias: {
             "jinaga": "jinaga/dist/jinaga"
         }

@@ -1,7 +1,8 @@
 {
-  "name": "yaca",
+  "name": "myapplication",
   "version": "1.0.0",
-  "description": "Yet Another Chat Application",
+  "description": "Brand new Jinaga Application",
+  "private": true,
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist/",
