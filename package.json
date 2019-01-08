@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist/",
-    "start": "node dist/index",
+    "start": "node dist/server/index",
     "build": "tsc --build src/server/tsconfig.json && webpack && cp -r views/ dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +18,7 @@
     "es6-promise": "^4.2.5",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "jinaga": "^2.0.0",
+    "jinaga": "^2.0.1",
     "jsonwebtoken": "^8.4.0",
     "passport": "^0.4.0",
     "pg": "^7.7.1"

@@ -1,4 +1,4 @@
-import { Jinaga as j } from "jinaga";
+import { Jinaga as j, AuthorizationRules } from "jinaga";
 
 export class Domain {
     static Type = 'MyApplication.Domain';
@@ -24,4 +24,11 @@ export class Visit {
             domain: d
         });
     }
+}
+
+export function authorizeVisit(a: AuthorizationRules) {
+    return (a
+        .any(Domain.Type)
+        .any(Visit.Type)
+    );
 }
