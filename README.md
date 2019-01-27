@@ -1,9 +1,9 @@
 # Jinaga Starter Kit for TypeScript
 
 Jinaga runs both on the server and in the browser, so that it can exchange facts between the two.
-This starter kit uses Webpack to bundle the client, and `tsc` to compile the server.
+This starter kit uses Webpack to bundle both sides.
 
-Find out more about [Jinaga](https://jinaga.com) and [Webpack](https://webpack.js.org/).
+Find out more about [Jinaga](https://jinaga.com), [TypeScript](https://www.typescriptlang.org), and [Webpack](https://webpack.js.org/).
 
 ## Installing
 
@@ -29,7 +29,7 @@ The setup script is located in `node_modules/jinaga/setup.sql`.
 You can run it from the command line like this:
 
 ```bash
-psql postgresql://postgres:password@localhost:5432/myapplication -f node_modules/jinaga/setup.sql
+psql -h localhost -f node_modules/jinaga/setup.sql -U postgres myapplication
 ```
 
 For complete instructions, see [Jinaga PostgreSQL Setup](https://jinaga.com/documents/getting-started/creating-an-application/postgresql-setup/).
@@ -42,7 +42,8 @@ To build:
 npm run build
 ```
 
-This creates a `dist` folder with the server-side code in `server.js`, and the client-side code in `scripts/main.js`.
+This creates a `dist` folder with the server-side code in `server.js`, and the client-side code in `scripts/index-xxxxx.js`.
+It also creates an HTML file in `views/index.html` with a script tag that loads the client-side code.
 
 ## Running
 
@@ -51,5 +52,16 @@ To run:
 ```bash
 npm start
 ```
+
+## Developing
+
+After the first build, you will probably want to run in development mode:
+
+```bash
+npm run dev
+```
+
+This will watch the source code for changes and rebuild as necessary.
+It will restart the server to load those changes.
 
 Build something incredible!
