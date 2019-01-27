@@ -11,10 +11,10 @@ Find out more about [Jinaga](https://jinaga.com), [TypeScript](https://www.types
 The easiest way to use this starter kit is to export it with Subversion.
 
 ```bash
-svn export https://github.com/jinaga/starter-typescript.git/trunk myapplication
+svn export https://github.com/jinaga/starter-typescript-react.git/trunk myapplication
 ```
 
-If you don't have Subversion installed, then you can go to the [GitHub page](https://github.com/jinaga/starter-typescript) and download it.
+If you don't have Subversion installed, then you can go to the [GitHub page](https://github.com/jinaga/starter-typescript-react) and download the zip file.
 
 Once you have the code, run:
 
