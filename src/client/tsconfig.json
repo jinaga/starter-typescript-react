@@ -9,6 +9,7 @@
         "outDir": "../../dist/scripts",
         "baseUrl": ".",
         "lib": [ "dom", "es2015" ],
+        "jsx": "react",
         "paths": {
             "*": [
                 "../../node_modules/*",
@@ -17,6 +18,7 @@
         }
     },
     "include": [
-        "**/*.ts"
+        "**/*.ts",
+        "**/*.tsx"
     ]
 }

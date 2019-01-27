@@ -6,7 +6,7 @@ module.exports = [
     // Client - index
     {
         mode: 'production',
-        entry: './src/client/index.ts',
+        entry: './src/client/index.tsx',
         output: {
             filename: 'scripts/index-[hash].js',
             path: path.resolve(__dirname, 'dist'),
@@ -21,7 +21,7 @@ module.exports = [
         module: {
             rules: [
                 {
-                    test: /\.ts$/,
+                    test: /\.tsx?$/,
                     include: [
                         path.resolve(__dirname, 'src/client'),
                         path.resolve(__dirname, 'src/shared')
@@ -32,7 +32,7 @@ module.exports = [
             ]
         },
         resolve: {
-            extensions: ['.js', '.ts'],
+            extensions: ['.js', '.ts', '.jsx', '.tsx'],
             alias: {
                 "jinaga": "jinaga/dist/jinaga"
             }
