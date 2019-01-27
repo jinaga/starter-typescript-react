@@ -2,7 +2,7 @@ import * as express from "express";
 import * as http from "http";
 import * as bodyParser from "body-parser";
 import { configureRoutes } from "./routes";
-import { configureJinaga } from "./jinaga";
+import { configureJinaga } from "./jinaga-config";
 
 const app = express();
 const server = http.createServer(app);

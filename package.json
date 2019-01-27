@@ -6,8 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist/",
-    "start": "node dist/server/index",
-    "build": "tsc --build src/server/tsconfig.json && webpack && cp -r views/ dist/",
+    "build": "webpack",
+    "start": "node dist/server.js",
+    "dev": "webpack --watch --mode=development & nodemon dist/server.js --watch dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michael L Perry",
@@ -21,7 +22,8 @@
     "jinaga": "^2.0.1",
     "jsonwebtoken": "^8.4.0",
     "passport": "^0.4.0",
-    "pg": "^7.7.1"
+    "pg": "^7.7.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
@@ -30,6 +32,8 @@
     "@types/node": "^8.10.19",
     "@types/passport": "^0.3.5",
     "@types/pg": "^7.4.6",
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.9",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.2",
     "webpack": "^4.28.3",
