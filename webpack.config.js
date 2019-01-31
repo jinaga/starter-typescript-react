@@ -12,6 +12,7 @@ module.exports = [
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/'
         },
+        devtool: 'source-map',
         plugins: [
             new HtmlWebpackPlugin({
                 template: 'views/index.html',
@@ -47,6 +48,7 @@ module.exports = [
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/'
         },
+        devtool: 'source-map',
         plugins: [
             new HtmlWebpackPlugin({
                 template: 'views/login.html',
