@@ -1,4 +1,5 @@
 import { Jinaga as j, AuthorizationRules } from "jinaga";
+import { User } from "./user";
 
 export class Domain {
     static Type = 'MyApplication.Domain';
@@ -15,7 +16,8 @@ export class Visit {
     time = new Date();
 
     constructor(
-        public domain: Domain
+        public domain: Domain,
+        public user: User
     ) { }
 
     static inDomain(d: Domain) {
@@ -24,11 +26,16 @@ export class Visit {
             domain: d
         });
     }
+
+    static user(v: Visit) {
+        (<any>v).has('user');
+        return j.match(v.user);
+    }
 }
 
 export function authorizeVisit(a: AuthorizationRules) {
     return (a
         .any(Domain.Type)
-        .any(Visit.Type)
+        .type(Visit.Type, j.for(Visit.user))
     );
 }

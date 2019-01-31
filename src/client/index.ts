@@ -1,13 +1,16 @@
 import { JinagaBrowser } from "jinaga";
-import { Visit, Domain } from "../shared/model/visit";
+import { User } from "../shared/model/user";
+import { Domain, Visit } from "../shared/model/visit";
 
 const j = JinagaBrowser.create({
     httpEndpoint: '/jinaga'
 });
 
 (async () => {
+    const { userFact: user, profile } = await j.login<User>();
+
     const domain = new Domain('myapplication');
-    await j.fact(new Visit(domain));
+    await j.fact(new Visit(domain, user));
     const visits = await j.query(domain, j.for(Visit.inDomain));
 
     const message = `You are visitor number ${visits.length}.`;
