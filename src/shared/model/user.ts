@@ -23,6 +23,20 @@ export class UserName {
         (<any>n).has('user');
         return j.match(n.user);
     }
+
+    static forUser(u: User) {
+        return j.match(<UserName>{
+            type: UserName.Type,
+            user: u
+        }).suchThat(UserName.isCurrent);
+    }
+
+    static isCurrent(n: UserName) {
+        return j.notExists(<UserName>{
+            type: UserName.Type,
+            prior: [n]
+        });
+    }
 }
 
 export function authorizeUser(a: AuthorizationRules) {
