@@ -12,6 +12,7 @@ module.exports = [
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/'
         },
+        devtool: 'source-map',
         plugins: [
             new HtmlWebpackPlugin({
                 template: 'views/index.html',
@@ -36,6 +37,35 @@ module.exports = [
             alias: {
                 "jinaga": "jinaga/dist/jinaga"
             }
+        }
+    },
+    // Client - login
+    {
+        mode: 'production',
+        entry: './src/client/login.ts',
+        output: {
+            filename: 'scripts/login-[hash].js',
+            path: path.resolve(__dirname, 'dist'),
+            publicPath: '/'
+        },
+        devtool: 'source-map',
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: 'views/login.html',
+                filename: 'views/login.html'
+            })
+        ],
+        module: {
+            rules: [
+                {
+                    test: /\.ts$/,
+                    include: [
+                        path.resolve(__dirname, 'src/client')
+                    ],
+                    use: 'ts-loader',
+                    exclude: /node-modules/
+                }
+            ]
         }
     },
     // Server

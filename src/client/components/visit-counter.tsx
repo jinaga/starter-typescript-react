@@ -2,6 +2,7 @@ import { Watch } from "jinaga";
 import * as React from "react";
 import { Domain, Visit } from "../../shared/model/visit";
 import { j } from "../jinaga-config";
+import { User, UserName } from "../../shared/model/user";
 
 export interface VisitCounterProps {
     domain: Domain
@@ -14,7 +15,7 @@ interface VisitCounterState {
 export class VisitCounter extends React.Component<VisitCounterProps, VisitCounterState> {
     private watch: Watch<Visit, {}>;
 
-    constructor(props) {
+    constructor(props: VisitCounterProps) {
         super(props);
         this.state = {
             visits: 0
@@ -22,9 +23,24 @@ export class VisitCounter extends React.Component<VisitCounterProps, VisitCounte
     }
 
     componentDidMount() {
+        (async () => {
+            const { userFact: user, profile } = await j.login<User>();
+
+            // Query for the user's current name.
+            const names = await j.query(user, j.for(UserName.forUser));
+            if (names.length !== 1 || names[0].value != profile.displayName) {
+                // Set their name if it is not set, in conflict, or different.
+                await j.fact(new UserName(user, profile.displayName, names));
+            }
+        
+            // Record this user's visit.
+            const domain = new Domain('myapplication');
+            await j.fact(new Visit(domain, user));
+        })().catch(err => {
+            console.error(err);
+        });
         this.watch = j.watch(this.props.domain, j.for(Visit.inDomain),
             visit => this.countVisit());
-        j.fact(new Visit(this.props.domain));
     }
 
     componentWillUnmount() {
