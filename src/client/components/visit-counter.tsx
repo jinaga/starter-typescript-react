@@ -5,6 +5,7 @@ import { j } from "../jinaga-config";
 import { User, UserName } from "../../shared/model/user";
 
 export interface VisitCounterProps {
+    user: User,
     domain: Domain
 }
 
@@ -24,18 +25,8 @@ export class VisitCounter extends React.Component<VisitCounterProps, VisitCounte
 
     componentDidMount() {
         (async () => {
-            const { userFact: user, profile } = await j.login<User>();
-
-            // Query for the user's current name.
-            const names = await j.query(user, j.for(UserName.forUser));
-            if (names.length !== 1 || names[0].value != profile.displayName) {
-                // Set their name if it is not set, in conflict, or different.
-                await j.fact(new UserName(user, profile.displayName, names));
-            }
-        
             // Record this user's visit.
-            const domain = new Domain('myapplication');
-            await j.fact(new Visit(domain, user));
+            await j.fact(new Visit(this.props.domain, this.props.user));
         })().catch(err => {
             console.error(err);
         });
