@@ -26,6 +26,35 @@ npm install
 
 Jinaga saves its facts in PostgreSQL.
 Create a PostgreSQL database, set up the dev user, and then run the setup script.
+
+To create the datbase run:
+
+```bash
+psql -h localhost -U postgres postgres
+```
+
+And then enter:
+
+```
+CREATE DATABASE myapplication;
+```
+
+And then, create the user.
+This is run once per server:
+
+```
+CREATE USER dev WITH
+  LOGIN
+  ENCRYPTED PASSWORD 'devpassword'
+  NOSUPERUSER
+  INHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION
+  VALID UNTIL 'infinity';
+```
+
+Quit that session with `\q` (or Ctrl+D), and then run the setup script.
 The setup script is located in `node_modules/jinaga/setup.sql`.
 You can run it from the command line like this:
 
