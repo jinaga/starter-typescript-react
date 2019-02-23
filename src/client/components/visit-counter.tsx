@@ -1,54 +1,37 @@
-import { Watch } from "jinaga";
+import { collection, field, useJinaga } from "jinaga-react";
 import * as React from "react";
+import { User } from "../../shared/model/user";
 import { Domain, Visit } from "../../shared/model/visit";
 import { j } from "../jinaga-config";
-import { User, UserName } from "../../shared/model/user";
 
 export interface VisitCounterProps {
-    user: User,
-    domain: Domain
+    user: User;
+    domain: Domain;
+}
+
+interface VisitViewModel {
+    key: string;
 }
 
 interface VisitCounterState {
-    visits: number
+    visits: VisitViewModel[];
 }
 
-export class VisitCounter extends React.Component<VisitCounterProps, VisitCounterState> {
-    private watch: Watch<Visit, {}>;
+export const VisitCounter = ({ user, domain }: VisitCounterProps) => {
+    const state = useJinaga<Domain, VisitCounterState>(j, domain, [
+        collection('visits', j.for(Visit.inDomain), v => v.key, [
+            field('key', v => j.hash(v))
+        ])
+    ]);
 
-    constructor(props: VisitCounterProps) {
-        super(props);
-        this.state = {
-            visits: 0
-        };
-    }
+    React.useEffect(() => {
+        // Record this user's visit.
+        j.fact(new Visit(domain, user))
+            .catch(err => console.error(err));
+    }, []);
 
-    componentDidMount() {
-        (async () => {
-            // Record this user's visit.
-            await j.fact(new Visit(this.props.domain, this.props.user));
-        })().catch(err => {
-            console.error(err);
-        });
-        this.watch = j.watch(this.props.domain, j.for(Visit.inDomain),
-            visit => this.countVisit());
-    }
-
-    componentWillUnmount() {
-        this.watch.stop();
-    }
-
-    render() {
-        return (this.state.visits
-            ? <p>You are visitor number {this.state.visits}.</p>
-            : null
-        );
-    }
-
-    countVisit() {
-        this.setState({
-            ...this.state,
-            visits: this.state.visits + 1
-        });
-    }
-}
+    return (state.visits.length > 0
+        ? <p>You are visitor number {state.visits.length}.</p>
+        : null
+    );
+};
