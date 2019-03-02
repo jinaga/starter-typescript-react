@@ -1,24 +1,31 @@
 const path = require('path');
+const fs = require('fs');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = [
-    // Client - index
-    {
+function client() {
+    const views = fs.readdirSync(path.resolve(__dirname, "views"))
+        .filter(file => path.extname(file) === ".html")
+        .map(file => path.basename(file, ".html"));
+    const scripts = fs.readdirSync(path.resolve(__dirname, "src/client"))
+        .filter(file => path.extname(file) === ".tsx")
+        .map(file => path.basename(file, ".tsx"));
+    const names = views.filter(name => scripts.includes(name));
+
+    return {
         mode: 'production',
-        entry: './src/client/index.tsx',
+        entry: names.reduce((e, name) =>
+            ({ ...e, [name]: `./src/client/${name}.tsx` }), {}),
         output: {
-            filename: 'scripts/index-[hash].js',
+            filename: 'scripts/[name]-[hash].js',
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/'
         },
         devtool: 'source-map',
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: 'views/index.html',
-                filename: 'views/index.html'
-            })
-        ],
+        plugins: names.map(name => new HtmlWebpackPlugin({
+            template: `views/${name}.html`,
+            filename: `views/${name}.html`
+        })),
         module: {
             rules: [
                 {
@@ -35,40 +42,15 @@ module.exports = [
         resolve: {
             extensions: ['.js', '.ts', '.jsx', '.tsx'],
             alias: {
+                "@shared": path.resolve(__dirname, "src/shared"),
                 "jinaga": "jinaga/dist/jinaga"
             }
         }
-    },
-    // Client - login
-    {
-        mode: 'production',
-        entry: './src/client/login.ts',
-        output: {
-            filename: 'scripts/login-[hash].js',
-            path: path.resolve(__dirname, 'dist'),
-            publicPath: '/'
-        },
-        devtool: 'source-map',
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: 'views/login.html',
-                filename: 'views/login.html'
-            })
-        ],
-        module: {
-            rules: [
-                {
-                    test: /\.ts$/,
-                    include: [
-                        path.resolve(__dirname, 'src/client')
-                    ],
-                    use: 'ts-loader',
-                    exclude: /node-modules/
-                }
-            ]
-        }
-    },
-    // Server
+    };
+}
+
+module.exports = [
+    client(),
     {
         mode: 'production',
         entry: './src/server/server.ts',
@@ -97,6 +79,9 @@ module.exports = [
         },
         resolve: {
             extensions: ['.js', '.ts'],
+            alias: {
+                "@shared": path.resolve(__dirname, "src/shared")
+            }
         },
         externals: [nodeExternals()]
     }

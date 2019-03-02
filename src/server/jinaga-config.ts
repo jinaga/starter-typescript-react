@@ -1,7 +1,7 @@
 import { JinagaServer, AuthorizationRules } from "jinaga";
 import { Express, Handler } from "express";
-import { authorizeVisit } from "../shared/model/visit";
-import { authorizeUser } from "../shared/model/user";
+import { authorizeVisit } from "@shared/model/visit";
+import { authorizeUser } from "@shared/model/user";
 
 export function configureJinaga(app: Express, authenticate: Handler) {
     const pgConnection = process.env.JINAGA_POSTGRESQL ||
@@ -9,7 +9,7 @@ export function configureJinaga(app: Express, authenticate: Handler) {
     const { handler } = JinagaServer.create({
         pgKeystore: pgConnection,
         pgStore: pgConnection,
-        // authorization: configureAuthorization
+        authorization: configureAuthorization
     });
 
     app.use('/jinaga', authenticate, handler);
