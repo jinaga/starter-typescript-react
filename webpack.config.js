@@ -23,6 +23,7 @@ function client() {
         },
         devtool: 'source-map',
         plugins: names.map(name => new HtmlWebpackPlugin({
+            chunks: [name],
             template: `views/${name}.html`,
             filename: `views/${name}.html`
         })),
