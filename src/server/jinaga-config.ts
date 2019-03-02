@@ -9,7 +9,7 @@ export function configureJinaga(app: Express, authenticate: Handler) {
     const { handler } = JinagaServer.create({
         pgKeystore: pgConnection,
         pgStore: pgConnection,
-        // authorization: configureAuthorization
+        authorization: configureAuthorization
     });
 
     app.use('/jinaga', authenticate, handler);
