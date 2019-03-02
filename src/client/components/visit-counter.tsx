@@ -1,7 +1,7 @@
 import { collection, field, useJinaga } from "jinaga-react";
 import * as React from "react";
-import { User } from "../../shared/model/user";
-import { Domain, Visit } from "../../shared/model/visit";
+import { User } from "@shared/model/user";
+import { Domain, Visit } from "@shared/model/visit";
 import { j } from "../jinaga-config";
 
 export interface VisitCounterProps {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { User, UserName } from "../shared/model/user";
+import { User, UserName } from "@shared/model/user";
 import { App } from "./components/app";
 import { j } from "./jinaga-config";
 
