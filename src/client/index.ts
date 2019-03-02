@@ -1,6 +1,6 @@
 import { JinagaBrowser } from "jinaga";
-import { User, UserName } from "../shared/model/user";
-import { Domain, Visit } from "../shared/model/visit";
+import { User, UserName } from "@shared/model/user";
+import { Domain, Visit } from "@shared/model/visit";
 
 const j = JinagaBrowser.create({
     httpEndpoint: '/jinaga'

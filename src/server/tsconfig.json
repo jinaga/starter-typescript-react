@@ -9,6 +9,9 @@
         "baseUrl": ".",
         "lib": [ "dom", "es2015" ],
         "paths": {
+            "@shared/*": [
+                "../shared/*"
+            ],
             "*": [
                 "../../node_modules/*",
                 "../types/*"
