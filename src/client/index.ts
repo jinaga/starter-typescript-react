@@ -18,7 +18,7 @@ const j = JinagaBrowser.create({
 
     // Record this user's visit.
     const domain = new Domain('myapplication');
-    await j.fact(new Visit(domain, user));
+    await j.fact(new Visit(domain, user, new Date()));
 
     // Query for all past visits so that we can display the count.
     const visits = await j.query(domain, j.for(Visit.inDomain));
