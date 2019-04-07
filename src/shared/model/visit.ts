@@ -1,4 +1,4 @@
-import { Jinaga as j, AuthorizationRules } from "jinaga";
+import { AuthorizationRules, ensure, Jinaga as j } from "jinaga";
 import { User } from "./user";
 
 export class Domain {
@@ -13,11 +13,11 @@ export class Domain {
 export class Visit {
     static Type = 'MyApplication.Visit';
     type = Visit.Type;
-    time = new Date();
 
     constructor(
         public domain: Domain,
-        public user: User
+        public user: User,
+        public time: Date | string
     ) { }
 
     static inDomain(d: Domain) {
@@ -28,7 +28,7 @@ export class Visit {
     }
 
     static user(v: Visit) {
-        (<any>v).has('user');
+        ensure(v).has("user");
         return j.match(v.user);
     }
 }
