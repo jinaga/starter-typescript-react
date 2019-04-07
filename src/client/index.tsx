@@ -13,6 +13,7 @@ import { j } from "./jinaga-config";
         // Set their name if it is not set, in conflict, or different.
         await j.fact(new UserName(user, profile.displayName, names));
     }
+    
     ReactDOM.render(
         <App user={user} />,
         document.getElementById('application-host'));

@@ -6,6 +6,6 @@ import { VisitCounter } from "./visit-counter";
 export const App = ({ user }: { user: User }) => (
     <>
         <p>Welcome!</p>
-        <VisitCounter user={user} fact={ new Domain('myapplication') } />
+        <VisitCounter user={user} fact={ new Domain("myapplication") } />
     </>
 );
