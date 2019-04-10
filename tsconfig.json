@@ -1,25 +1,27 @@
 {
     "compilerOptions": {
-        "module": "amd",
+        "module": "commonjs",
         "target": "es5",
         "noImplicitAny": true,
-        "allowJs": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "../../dist/scripts",
+        "outDir": "./dist/scripts",
         "baseUrl": ".",
         "lib": [ "dom", "es2015" ],
         "paths": {
             "@shared/*": [
-                "../shared/*"
+                "./src/shared/*"
             ],
             "*": [
-                "../../node_modules/*",
-                "../types/*"
+                "./node_modules/*"
             ]
         }
     },
     "include": [
-        "**/*.ts"
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
     ]
 }
