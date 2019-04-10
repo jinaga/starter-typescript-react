@@ -21,6 +21,7 @@ function client() {
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/'
         },
+        target: 'web',
         devtool: 'source-map',
         plugins: names.map(name => new HtmlWebpackPlugin({
             chunks: [name],
