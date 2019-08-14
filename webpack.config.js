@@ -32,7 +32,7 @@ function client() {
     module: {
       rules: [
         {
-          test: /\.tsx$/,
+          test: /\.tsx?$/,
           include: [
             path.resolve(__dirname, 'src/client'),
             path.resolve(__dirname, 'src/shared'),

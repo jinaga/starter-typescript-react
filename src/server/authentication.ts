@@ -19,7 +19,7 @@ export function configureAuthentication(app: Express.Application) {
     if (req.isAuthenticated()) {
       return next();
     }
-    res.redirect('/login');
+    res.sendStatus(403);
   };
   return authenticate;
 }
