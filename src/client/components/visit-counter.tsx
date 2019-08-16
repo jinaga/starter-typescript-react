@@ -12,8 +12,9 @@ const visitCounterSpec = specificationFor(Domain, {
 });
 
 const visitCounterMapping = visitCounterSpec<{
-    user: User
-}>(({ domain, visits, user }) => {
+    user: User,
+    userDisplayName: string
+}>(({ domain, visits, user, userDisplayName }) => {
     React.useEffect(() => {
         // Record this user's visit.
         j.fact(new Visit(domain, user, new Date()))
@@ -21,7 +22,7 @@ const visitCounterMapping = visitCounterSpec<{
     }, []);
 
     return (
-        <p>You are visitor number {visits.length}.</p>
+        <p>Welcome, {userDisplayName}. You are visitor number {visits.length}.</p>
     );
 });
 

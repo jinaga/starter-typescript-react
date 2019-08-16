@@ -1,20 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { User, UserName } from "@shared/model/user";
 import { App } from "./components/app";
-import { j } from "./jinaga-config";
+import { ServiceWorkerContainer } from './components/service-worker-container';
+import { UserContainer } from './components/user-container';
+import './styles/app';
+import { registerServiceWorker } from './util/register-service-worker';
 
-(async () => {
-    const { userFact: user, profile } = await j.login<User>();
-
-    // Query for the user's current name.
-    const names = await j.query(user, j.for(UserName.forUser));
-    if (names.length !== 1 || names[0].value != profile.displayName) {
-        // Set their name if it is not set, in conflict, or different.
-        await j.fact(new UserName(user, profile.displayName, names));
-    }
-    
-    ReactDOM.render(
-        <App user={user} />,
-        document.getElementById('application-host'));
-})().catch(err => console.error(err));
+ReactDOM.render(
+  <ServiceWorkerContainer registerServiceWorker={registerServiceWorker}>
+    <UserContainer>
+      <App />
+    </UserContainer>
+  </ServiceWorkerContainer>,
+  document.getElementById('application-host'));
