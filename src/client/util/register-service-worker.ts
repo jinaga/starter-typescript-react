@@ -18,7 +18,9 @@ export type PromptForRefreshFunction = (refresh: () => void) => void;
 function promptUserToRefresh(promptForRefresh: PromptForRefreshFunction) {
   return (reg: ServiceWorkerRegistration) => {
     promptForRefresh(() => {
-      reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+      if (reg.waiting) {
+        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+      }
     });
   }  
 }

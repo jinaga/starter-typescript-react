@@ -7,7 +7,7 @@ import { j } from "../jinaga-config";
 const visitCounterSpec = specificationFor(Domain, {
     domain: field(d => d),
     visits: array(j.for(Visit.inDomain), {
-        hash: field(v => j.hash(v))
+        hash: field((v: Visit) => j.hash(v))
     })
 });
 
