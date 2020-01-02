@@ -21,7 +21,7 @@
     "express-session": "^1.17.0",
     "jimp": "^0.9.3",
     "jinaga": "^2.4.4",
-    "jinaga-react": "^2.1.3",
+    "jinaga-react": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "passport-twitter": "^1.0.4",
