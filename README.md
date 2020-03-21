@@ -1,6 +1,6 @@
 # Jinaga Starter Kit for TypeScript and React
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/jinaga/starter-typescript-react.svg)](https://greenkeeper.io/)
+
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/jinaga/starter-typescript.svg)](https://greenkeeper.io/)
 
