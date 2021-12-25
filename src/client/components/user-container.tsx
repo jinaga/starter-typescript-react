@@ -27,10 +27,10 @@ async function login() {
   }
 }
 
-const UserContext = React.createContext(null as UserProps);
+const UserContext = React.createContext<UserProps | null>(null);
 
 export const UserContainer = ({ children }: React.PropsWithChildren<{}>) => {
-  const [ user, setUser ] = React.useState(null as UserProps);
+  const [ user, setUser ] = React.useState<UserProps | null>(null);
   React.useEffect(() => {
     run(async () => {
       const user = await login();
@@ -46,12 +46,12 @@ export const UserContainer = ({ children }: React.PropsWithChildren<{}>) => {
 }
 
 export function withUser<T>(WrappedComponent: React.Factory<UserProps & T>, DefaultComponent?: React.Factory<T>) {
-  DefaultComponent = DefaultComponent || (() => <></>);
+  const SafeDefaultComponent = DefaultComponent || (() => <></>);
   return (props: T) => (
     <UserContext.Consumer>
       { value => value
         ? <WrappedComponent {...value} {...props} />
-        : <DefaultComponent {...props} />
+        : <SafeDefaultComponent {...props} />
       }
     </UserContext.Consumer>
   );
