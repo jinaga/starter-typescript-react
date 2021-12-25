@@ -1,5 +1,5 @@
 import * as Express from 'express';
-import * as passport from 'passport';
+import passport = require('passport');
 import { configureAuthenticationTwitter } from './authentication-strategy/twitter';
 
 export function configureAuthentication(app: Express.Application) {
@@ -19,7 +19,7 @@ export function configureAuthentication(app: Express.Application) {
     if (req.isAuthenticated()) {
       return next();
     }
-    res.sendStatus(403);
+    res.redirect('/login');
   };
   return authenticate;
 }

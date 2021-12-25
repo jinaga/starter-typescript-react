@@ -25,7 +25,7 @@ export function configureRoutes(app: Express, authenticate: Handler) {
     res.sendFile(path.join(__dirname, './index.html'));
   });
 
-  app.get(/^\/login(.html)?$/, (req, res, next) => {
+  app.get(/^\/login(.html)?$/, authenticate, (req, res, next) => {
     res.sendFile(path.join(__dirname, './login.html'));
   });
 
@@ -34,9 +34,5 @@ export function configureRoutes(app: Express, authenticate: Handler) {
     renderImage(req, res, imageFileName);
   });
 
-  app.use('/scripts', ExpressStatic(path.join(__dirname, 'scripts')));
-
-  app.get('/service-worker.js', (req, res) => {
-    res.sendFile(path.join(__dirname, './scripts/service-worker.js'));
-  });
+  app.use('/scripts', ExpressStatic(path.join(__dirname, '../scripts')));
 }
