@@ -51,7 +51,7 @@ export function withUser<T>(WrappedComponent: React.Factory<UserProps & T>, Defa
     <UserContext.Consumer>
       { value => value
         ? <WrappedComponent {...value} {...props} />
-        : <SafeDefaultComponent {...props} />
+        : <SafeDefaultComponent key="default" {...props} />
       }
     </UserContext.Consumer>
   );
