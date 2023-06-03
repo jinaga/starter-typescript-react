@@ -21,11 +21,11 @@ export function configureRoutes(app: Express, authenticate: Handler) {
         .send(JSON.stringify(manifest));
   });
 
-  app.get(/^\/(index.html)?$/, (req, res) => {
+  app.get(/^\/(index.html)?$/, authenticate, (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
   });
 
-  app.get(/^\/login(.html)?$/, authenticate, (req, res, next) => {
+  app.get(/^\/login(.html)?$/, (req, res, next) => {
     res.sendFile(path.join(__dirname, './login.html'));
   });
 
