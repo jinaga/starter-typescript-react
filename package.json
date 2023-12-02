@@ -27,7 +27,7 @@
     "jinaga-react": "^4.1.1",
     "jinaga-server": "^1.1.4",
     "jsonwebtoken": "^9.0.1",
-    "passport": "^0.6.0",
+    "passport": "^0.7.0",
     "passport-twitter": "^1.0.4",
     "pg": "^8.11.2",
     "react": "^18.2.0",
