@@ -1,6 +1,5 @@
 import * as Express from 'express';
 import passport = require('passport');
-import { configureAuthenticationTwitter } from './authentication-strategy/twitter';
 
 export function configureAuthentication(app: Express.Application) {
   passport.serializeUser((user, done) => {
@@ -12,8 +11,6 @@ export function configureAuthentication(app: Express.Application) {
 
   app.use(passport.initialize());
   app.use(passport.session());
-
-  configureAuthenticationTwitter(app);
 
   const authenticate: Express.Handler = (req, res, next) => {
     if (req.isAuthenticated()) {
