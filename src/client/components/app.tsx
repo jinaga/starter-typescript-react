@@ -5,9 +5,9 @@ import { withUser } from './user-container';
 import { VisitCounter } from "./visit-counter";
 
 const AppDetail = withUser(({ user, userDisplayName }) => (
-    <VisitCounter user={ user } userDisplayName={ userDisplayName } fact={ new Domain("myapplication") } />
+    <VisitCounter user={ user } userDisplayName={ userDisplayName } domain={ new Domain("myapplication") } />
   ), () => (
-    <a href="/auth/twitter">Sign in with Twitter</a>
+    <p>Place your login links here</p>
   )
 );
 

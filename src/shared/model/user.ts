@@ -1,4 +1,4 @@
-import { Jinaga as j, AuthorizationRules, ensure } from "jinaga";
+import { AuthorizationRules, Model } from "jinaga";
 
 export class User {
     static Type = 'Jinaga.User';
@@ -18,29 +18,9 @@ export class UserName {
         public value: string,
         public prior: UserName[]
     ) { }
-
-    static user(n: UserName) {
-        ensure(n).has('user', User);
-        return j.match(n.user);
-    }
-
-    static forUser(u: User) {
-        return j.match(<UserName>{
-            type: UserName.Type,
-            user: u
-        }).suchThat(UserName.isCurrent);
-    }
-
-    static isCurrent(n: UserName) {
-        return j.notExists(<UserName>{
-            type: UserName.Type,
-            prior: [n]
-        });
-    }
 }
 
-export function authorizeUser(a: AuthorizationRules) {
-    return (a
-        .type(UserName.Type, j.for(UserName.user))
-    );
-}
+export const authorizeUser = (model: Model)  => (a: AuthorizationRules) => a
+    .any(User)
+    .type(UserName, name => name.user)
+    ;

@@ -1,4 +1,5 @@
-import { UserName, User } from '@shared/model/user';
+import { model } from '@shared/model/model';
+import { User, UserName } from '@shared/model/user';
 import * as React from 'react';
 import { j } from '../jinaga-config';
 import { run } from '../util/processor';
@@ -8,13 +9,17 @@ interface UserProps {
   userDisplayName: string;
 }
 
+const userNamesForUser = model.given(User).match(user =>
+  user.successors(UserName, name => name.user)
+);
+
 async function login() {
   try {
     const { userFact: user, profile } = await j.login<User>();
     const userDisplayName = profile.displayName;
 
     // Query for the user's current name.
-    const names = await j.query(user, j.for(UserName.forUser));
+    const names = await j.query(userNamesForUser, user);
     if (names.length !== 1 || names[0].value != userDisplayName) {
       // Set their name if it is not set, in conflict, or different.
       await j.fact(new UserName(user, userDisplayName, names));

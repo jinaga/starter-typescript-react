@@ -1,29 +1,32 @@
+import { model } from "@shared/model/model";
 import { User } from "@shared/model/user";
 import { Domain, Visit } from "@shared/model/visit";
-import { array, field, jinagaContainer, specificationFor } from "jinaga-react";
+import { useSpecification } from "jinaga-react";
 import * as React from "react";
 import { j } from "../jinaga-config";
 
-const visitCounterSpec = specificationFor(Domain, {
-    domain: field(d => d),
-    visits: array(j.for(Visit.inDomain), {
-        hash: field((v: Visit) => j.hash(v))
-    })
-});
+const visitsInDomain = model.given(Domain).match(domain =>
+    domain.successors(Visit, visit => visit.domain).select(visit => j.hash(visit))
+)
 
-const visitCounterMapping = visitCounterSpec<{
-    user: User,
-    userDisplayName: string
-}>(({ domain, visits, user, userDisplayName }) => {
+interface VisitCounterProps {
+    user: User;
+    userDisplayName: string;
+    domain: Domain;
+}
+
+export const VisitCounter = ({user, userDisplayName, domain}: VisitCounterProps) => {
+    const visits = useSpecification(j, visitsInDomain, domain);
+
     React.useEffect(() => {
         // Record this user's visit.
         j.fact(new Visit(domain, user, new Date()))
             .catch(err => console.error(err));
     }, []);
 
-    return (
-        <p>Welcome, {userDisplayName}. You are visitor number {visits.length}.</p>
+    return visits.data ? (
+        <p>Welcome, {userDisplayName}. You are visitor number {visits.data.length}.</p>
+    ) : (
+        <p>Loading...</p>
     );
-});
-
-export const VisitCounter = jinagaContainer(j, visitCounterMapping);
+}

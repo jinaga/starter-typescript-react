@@ -1,3 +1,4 @@
+import { model } from "@shared/model/model";
 import { authorizeUser } from "@shared/model/user";
 import { authorizeVisit } from "@shared/model/visit";
 import { Express, Handler } from "express";
@@ -18,7 +19,7 @@ export function configureJinaga(app: Express, authenticate: Handler) {
 
 function configureAuthorization(a: AuthorizationRules) {
   return (a
-    .with(authorizeVisit)
-    .with(authorizeUser)
+    .with(authorizeVisit(model))
+    .with(authorizeUser(model))
   );
 }

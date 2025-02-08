@@ -1,4 +1,4 @@
-import { AuthorizationRules, ensure, Jinaga as j } from "jinaga";
+import { AuthorizationRules, Model } from "jinaga";
 import { User } from "./user";
 
 export class Domain {
@@ -19,23 +19,9 @@ export class Visit {
         public user: User,
         public time: Date | string
     ) { }
-
-    static inDomain(d: Domain) {
-        return j.match(<Visit>{
-            type: Visit.Type,
-            domain: d
-        });
-    }
-
-    static user(v: Visit) {
-        ensure(v).has("user", User);
-        return j.match(v.user);
-    }
 }
 
-export function authorizeVisit(a: AuthorizationRules) {
-    return (a
-        .any(Domain.Type)
-        .type(Visit.Type, j.for(Visit.user))
-    );
-}
+export const authorizeVisit = (model: Model) => (a: AuthorizationRules) => a
+    .any(Domain)
+    .type(Visit, visit => visit.user)
+    ;
