@@ -23,7 +23,7 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "jimp": "^0.22.12",
-    "jinaga": "^6.5.7",
+    "jinaga": "^6.6.0",
     "jinaga-react": "^5.0.1",
     "jinaga-server": "^3.3.6",
     "jsonwebtoken": "^9.0.2",
