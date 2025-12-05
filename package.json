@@ -18,7 +18,7 @@
   "author": "Michael L Perry",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.20.3",
+    "body-parser": "^1.20.4",
     "cookie-parser": "^1.4.7",
     "express": "^4.22.1",
     "express-session": "^1.18.2",
