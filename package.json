@@ -22,7 +22,7 @@
     "cookie-parser": "^1.4.7",
     "express": "^4.22.1",
     "express-session": "^1.19.0",
-    "jimp": "^0.22.12",
+    "jimp": "^1.6.1",
     "jinaga": "^6.6.1",
     "jinaga-react": "^5.0.1",
     "jinaga-server": "^3.5.4",
